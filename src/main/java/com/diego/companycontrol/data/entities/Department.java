@@ -1,37 +1,32 @@
 package com.diego.companycontrol.data.entities;
 
-import lombok.Data;
+import com.diego.companycontrol.data.entities.enums.DepartmentRole;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 
-@Entity @Table
-@Data @NoArgsConstructor
+@ToString
+@Entity
 public class Department {
 
-    @Id @GeneratedValue @Column(name = "department_id")
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
     private Long id;
 
-    @Getter @Setter @Column(name = "department_name")
+    @Getter @Setter
     private String name;
 
-    @OneToMany
-    @JoinTable(name = "employee")
-    @Getter @Setter
-    private List<Employee> employees = new ArrayList<>();
+    public Department(){};
 
-    public Department(String name){
-        this.name = name;
+    public Department(DepartmentRole role){
+        this.name = role.name();
     }
 
-    public void addEmployee(Employee employee){
-        this.employees.add(employee);
-    }
 
 }

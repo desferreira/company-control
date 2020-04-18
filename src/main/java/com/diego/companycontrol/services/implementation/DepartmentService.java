@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DepartmentServiceImpl implements IDepartmentService {
+public class DepartmentService implements IDepartmentService {
 
     @Autowired
     private DepartmentRepository repository;
@@ -22,25 +22,20 @@ public class DepartmentServiceImpl implements IDepartmentService {
 
     @Override
     public Department findById(Long id) {
-        Optional<Department> departmentOptional = this.repository.findById(id);
-        if(departmentOptional.isPresent()){
-            return departmentOptional.get();
+        Optional<Department> optionalDepartment = this.repository.findById(id);
+        if(optionalDepartment.isPresent()){
+            return optionalDepartment.get();
         }
         return null;
     }
 
     @Override
-    public List<Department> findByName(String name) {
-        return this.repository.findDepartmentByNameContaining(name);
-    }
-
-    @Override
-    public Department createDepartment(Department department) {
+    public Department createEmployee(Department department) {
         return this.repository.save(department);
     }
 
     @Override
-    public void deleteDepartment(Long id) {
-        this.repository.deleteById(id);
+    public Department findByName(String name) {
+        return this.repository.findDepartmentByName(name);
     }
 }

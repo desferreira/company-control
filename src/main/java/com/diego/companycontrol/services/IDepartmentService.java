@@ -8,8 +8,6 @@ public interface IDepartmentService {
 
     List<Department> findAll();
     Department findById(Long id);
-    List<Department> findByName(String name);
-    Department createDepartment(Department department);
-    void deleteDepartment(Long id);
-
+    Department createEmployee(Department department);
+    Department findByName(String name);
 }
