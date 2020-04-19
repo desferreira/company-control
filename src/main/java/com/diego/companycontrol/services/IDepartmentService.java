@@ -9,5 +9,5 @@ public interface IDepartmentService {
     List<Department> findAll();
     Department findById(Long id);
     Department createEmployee(Department department);
-    Department findByName(String name);
+    Department findDepartmentByName(String name);
 }

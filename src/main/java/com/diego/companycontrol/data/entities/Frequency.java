@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Entity
 @Table
@@ -19,17 +19,17 @@ public class Frequency {
     private Long id;
 
     @Getter @Setter
-    private Instant startWork;
+    private LocalDateTime startWork;
 
     @Getter @Setter
-    private Instant finalWork;
+    private LocalDateTime finalWork;
 
     @Getter @Setter
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.REMOVE})
     @JsonIgnore
     private Employee employee;
 
-    public Frequency(Instant startWork, Instant finalWork, Employee employee) {
+    public Frequency(LocalDateTime startWork, LocalDateTime finalWork, Employee employee) {
         this.startWork = startWork;
         this.finalWork = finalWork;
         this.employee = employee;

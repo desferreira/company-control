@@ -1,11 +1,15 @@
 package com.diego.companycontrol.data.forms;
 
-import java.time.Instant;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.time.LocalDateTime;
 
 public class FrequencyForm {
 
-    public Instant startHour;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    public LocalDateTime startHour;
 
-    public Instant finalHour;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
+    public LocalDateTime finalHour;
 
 }

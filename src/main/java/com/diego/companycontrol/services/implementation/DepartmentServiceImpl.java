@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class DepartmentService implements IDepartmentService {
+public class DepartmentServiceImpl implements IDepartmentService {
 
     @Autowired
     private DepartmentRepository repository;
@@ -35,7 +35,7 @@ public class DepartmentService implements IDepartmentService {
     }
 
     @Override
-    public Department findByName(String name) {
+    public Department findDepartmentByName(String name) {
         return this.repository.findDepartmentByName(name);
     }
 }

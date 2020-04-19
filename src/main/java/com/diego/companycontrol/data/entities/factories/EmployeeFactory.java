@@ -3,6 +3,7 @@ package com.diego.companycontrol.data.entities.factories;
 import com.diego.companycontrol.data.entities.*;
 import com.diego.companycontrol.data.entities.enums.EmployeeRole;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class EmployeeFactory {

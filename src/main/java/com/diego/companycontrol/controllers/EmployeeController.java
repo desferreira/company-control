@@ -3,7 +3,7 @@ package com.diego.companycontrol.controllers;
 import com.diego.companycontrol.data.entities.Employee;
 import com.diego.companycontrol.data.forms.EmployeeForm;
 import com.diego.companycontrol.data.forms.FrequencyForm;
-import com.diego.companycontrol.services.implementation.EmployeeService;
+import com.diego.companycontrol.services.implementation.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,26 +16,32 @@ import java.util.List;
 public class EmployeeController {
 
     @Autowired
-    private EmployeeService employeeService;
+    private EmployeeServiceImpl employeeServiceImpl;
 
     @GetMapping
     public ResponseEntity<List<Employee>> findAllEmployees(){
-        return ResponseEntity.ok().body(this.employeeService.findAll());
+        return ResponseEntity.ok().body(this.employeeServiceImpl.findAll());
     }
 
     @PostMapping
     public ResponseEntity<Employee> createNewEmployee(@RequestBody EmployeeForm employeeForm){
-        return ResponseEntity.ok().body(this.employeeService.createFromEmployeeForm(employeeForm));
+        return ResponseEntity.ok().body(this.employeeServiceImpl.createFromEmployeeForm(employeeForm));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Employee> findEmployeeById(@PathVariable Long id){
-        return ResponseEntity.ok().body(this.employeeService.findById(id));
+        return ResponseEntity.ok().body(this.employeeServiceImpl.findById(id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteEmployeeById(@PathVariable Long id){
+        this.employeeServiceImpl.removeEmployee(id);
+        return ResponseEntity.ok().body("O usuário foi removido com sucesso!");
     }
 
     @PostMapping("/register/{id}")
     public ResponseEntity<Employee> registerFrequency(@PathVariable Long id, @RequestBody FrequencyForm form){
-        return ResponseEntity.ok().body(this.employeeService.insertFrequency(id, form));
+        return ResponseEntity.ok().body(this.employeeServiceImpl.insertFrequency(id, form));
     }
 
 

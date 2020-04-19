@@ -16,5 +16,6 @@ public interface IEmployeeService {
     List<Employee> findByName(String name);
     Employee createFromEmployeeForm(EmployeeForm form);
     Employee insertFrequency(Long id, FrequencyForm frequency);
+    void removeEmployee(Long id);
 
 }

@@ -14,6 +14,8 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -54,9 +56,9 @@ public class Instantiation implements CommandLineRunner {
 
         employeeRepository.saveAll(Arrays.asList(e1, e2));
 
-        Frequency ef1 = new Frequency(Instant.now(), Instant.now(), e1);
+        Frequency ef1 = new Frequency(LocalDateTime.now(), LocalDateTime.now(), e1);
 
-        Frequency ef2 = new Frequency(Instant.now(), Instant.now(), e2);
+        Frequency ef2 = new Frequency(LocalDateTime.now(), LocalDateTime.now(), e2);
 
         frequencyRepository.saveAll(Arrays.asList(ef1, ef2));
 
