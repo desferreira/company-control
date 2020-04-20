@@ -1,5 +1,6 @@
 package com.diego.companycontrol.data.entities;
 
+import com.diego.companycontrol.data.entities.enums.FrequencyStatus;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,9 +30,13 @@ public class Frequency {
     @JsonIgnore
     private Employee employee;
 
-    public Frequency(LocalDateTime startWork, LocalDateTime finalWork, Employee employee) {
+    @Getter @Setter
+    private FrequencyStatus status;
+
+    public Frequency(LocalDateTime startWork, LocalDateTime finalWork, Employee employee, FrequencyStatus status) {
         this.startWork = startWork;
         this.finalWork = finalWork;
         this.employee = employee;
+        this.status = status;
     }
 }

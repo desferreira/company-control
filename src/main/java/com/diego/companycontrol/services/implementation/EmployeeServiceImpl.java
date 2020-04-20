@@ -5,9 +5,11 @@ import com.diego.companycontrol.data.entities.Employee;
 import com.diego.companycontrol.data.entities.Frequency;
 import com.diego.companycontrol.data.entities.enums.DepartmentRole;
 import com.diego.companycontrol.data.entities.enums.EmployeeRole;
+import com.diego.companycontrol.data.entities.enums.FrequencyStatus;
 import com.diego.companycontrol.data.entities.factories.EmployeeFactory;
 import com.diego.companycontrol.data.forms.EmployeeForm;
 import com.diego.companycontrol.data.forms.FrequencyForm;
+import com.diego.companycontrol.data.forms.FrequencyFormId;
 import com.diego.companycontrol.exception.HttpException;
 import com.diego.companycontrol.repositories.DepartmentRepository;
 import com.diego.companycontrol.repositories.EmployeeRepository;
@@ -87,6 +89,21 @@ public class EmployeeServiceImpl implements IEmployeeService {
             this.frequencyService.saveFrequency(frequency);
             employee.addFrequency(frequency);
             this.repository.save(employee);
+            return employee;
+        }
+        return null;
+    }
+
+    public Employee concludeFrequency(Long id, FrequencyFormId form){
+        Optional<Employee> optionalEmployee = this.repository.findById(id);
+        if (optionalEmployee.isPresent()){
+            Employee employee = optionalEmployee.get();
+            Frequency frequency = this.frequencyService.findFrequencyById(form.id);
+            if (frequency.getStatus() == FrequencyStatus.OPEN){
+                frequency.setFinalWork(form.finalHour);
+                frequency.setStatus(FrequencyStatus.CLOSED);
+                this.frequencyService.saveFrequency(frequency);
+            }
             return employee;
         }
         return null;

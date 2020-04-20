@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
 
-public class FrequencyForm {
+public class FrequencyFormId {
+
+    public Long id;
 
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm")
     public LocalDateTime startHour;

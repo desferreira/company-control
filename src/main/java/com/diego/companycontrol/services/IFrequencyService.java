@@ -13,4 +13,6 @@ public interface IFrequencyService {
 
     Frequency saveFrequency(Frequency frequency);
 
+    Frequency findFrequencyById(Long id);
+
 }

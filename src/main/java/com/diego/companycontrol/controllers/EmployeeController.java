@@ -3,6 +3,7 @@ package com.diego.companycontrol.controllers;
 import com.diego.companycontrol.data.entities.Employee;
 import com.diego.companycontrol.data.forms.EmployeeForm;
 import com.diego.companycontrol.data.forms.FrequencyForm;
+import com.diego.companycontrol.data.forms.FrequencyFormId;
 import com.diego.companycontrol.services.implementation.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,11 @@ public class EmployeeController {
     @PostMapping("/register/{id}")
     public ResponseEntity<Employee> registerFrequency(@PathVariable Long id, @RequestBody FrequencyForm form){
         return ResponseEntity.ok().body(this.employeeServiceImpl.insertFrequency(id, form));
+    }
+
+    @PostMapping("/register/conclude/{id}")
+    public ResponseEntity<Employee> registerFrequencyById(@PathVariable Long id, @RequestBody FrequencyFormId form){
+        return ResponseEntity.ok().body(this.employeeServiceImpl.concludeFrequency(id, form));
     }
 
     @GetMapping("/salary/{department}")

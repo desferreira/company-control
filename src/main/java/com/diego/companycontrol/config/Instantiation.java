@@ -5,6 +5,7 @@ import com.diego.companycontrol.data.entities.Department;
 import com.diego.companycontrol.data.entities.Frequency;
 import com.diego.companycontrol.data.entities.enums.DepartmentRole;
 import com.diego.companycontrol.data.entities.enums.EmployeeRole;
+import com.diego.companycontrol.data.entities.enums.FrequencyStatus;
 import com.diego.companycontrol.data.entities.factories.EmployeeFactory;
 import com.diego.companycontrol.repositories.DepartmentRepository;
 import com.diego.companycontrol.repositories.EmployeeRepository;
@@ -56,9 +57,9 @@ public class Instantiation implements CommandLineRunner {
 
         employeeRepository.saveAll(Arrays.asList(e1, e2));
 
-        Frequency ef1 = new Frequency(LocalDateTime.now(), LocalDateTime.now(), e1);
+        Frequency ef1 = new Frequency(LocalDateTime.now(), LocalDateTime.now(), e1, FrequencyStatus.CLOSED);
 
-        Frequency ef2 = new Frequency(LocalDateTime.now(), LocalDateTime.now(), e2);
+        Frequency ef2 = new Frequency(LocalDateTime.now(), LocalDateTime.now(), e2, FrequencyStatus.CLOSED);
 
         frequencyRepository.saveAll(Arrays.asList(ef1, ef2));
 
