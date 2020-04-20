@@ -1,7 +1,6 @@
 package com.diego.companycontrol.services;
 
 import com.diego.companycontrol.data.entities.Employee;
-import com.diego.companycontrol.data.entities.Frequency;
 import com.diego.companycontrol.data.entities.enums.EmployeeRole;
 import com.diego.companycontrol.data.forms.EmployeeForm;
 import com.diego.companycontrol.data.forms.FrequencyForm;
@@ -17,5 +16,6 @@ public interface IEmployeeService {
     Employee createFromEmployeeForm(EmployeeForm form);
     Employee insertFrequency(Long id, FrequencyForm frequency);
     void removeEmployee(Long id);
+    Double getMeanSalary(Long departmentId);
 
 }

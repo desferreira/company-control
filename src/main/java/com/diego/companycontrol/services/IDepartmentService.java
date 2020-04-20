@@ -10,4 +10,5 @@ public interface IDepartmentService {
     Department findById(Long id);
     Department createEmployee(Department department);
     Department findDepartmentByName(String name);
+
 }

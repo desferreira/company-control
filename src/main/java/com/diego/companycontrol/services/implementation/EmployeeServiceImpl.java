@@ -17,6 +17,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -101,5 +102,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
         }
 
 
+    }
+
+    @Override
+    public Double getMeanSalary(Long departmentId) {
+        Department department = this.departmentService.findById(departmentId);
+        List<Employee> employees = this.repository.findEmployeeByDepartment(department);
+        return employees.stream().mapToDouble(Employee::getBonus).average().getAsDouble();
     }
 }

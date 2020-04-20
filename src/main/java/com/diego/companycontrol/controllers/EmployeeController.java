@@ -44,5 +44,10 @@ public class EmployeeController {
         return ResponseEntity.ok().body(this.employeeServiceImpl.insertFrequency(id, form));
     }
 
+    @GetMapping("/salary/{department}")
+    public ResponseEntity<Double> getMeanSalary(@PathVariable Long department){
+        return ResponseEntity.ok().body(this.employeeServiceImpl.getMeanSalary(department));
+    }
+
 
 }
