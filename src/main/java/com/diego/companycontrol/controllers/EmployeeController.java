@@ -40,6 +40,11 @@ public class EmployeeController {
         return ResponseEntity.ok().body("O usuário foi removido com sucesso!");
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeForm form){
+        return ResponseEntity.ok().body(this.employeeServiceImpl.updateEmployee(id, form));
+    }
+
     @PostMapping("/register/{id}")
     public ResponseEntity<Employee> registerFrequency(@PathVariable Long id, @RequestBody FrequencyForm form){
         return ResponseEntity.ok().body(this.employeeServiceImpl.insertFrequency(id, form));

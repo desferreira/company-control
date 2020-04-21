@@ -11,15 +11,12 @@ import com.diego.companycontrol.data.forms.EmployeeForm;
 import com.diego.companycontrol.data.forms.FrequencyForm;
 import com.diego.companycontrol.data.forms.FrequencyFormId;
 import com.diego.companycontrol.exception.HttpException;
-import com.diego.companycontrol.repositories.DepartmentRepository;
 import com.diego.companycontrol.repositories.EmployeeRepository;
 import com.diego.companycontrol.services.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -126,5 +123,26 @@ public class EmployeeServiceImpl implements IEmployeeService {
         Department department = this.departmentService.findById(departmentId);
         List<Employee> employees = this.repository.findEmployeeByDepartment(department);
         return employees.stream().mapToDouble(Employee::getBonus).average().getAsDouble();
+    }
+
+    @Override
+    public Employee updateEmployee(Long id, EmployeeForm form) {
+        Optional<Employee> optionalEmployee = this.repository.findById(id);
+        if(optionalEmployee.isPresent()){
+            Employee updatedEmployee = this.updateEmployee(form, optionalEmployee.get());
+            this.repository.save(updatedEmployee);
+            return updatedEmployee;
+        }
+        return null;
+    }
+
+    private Employee updateEmployee(EmployeeForm form, Employee old){
+        old.setName(form.name);
+        old.setBirthDate(form.birthDate);
+        old.setEmail(form.email);
+        old.setDepartment(this.departmentService.findDepartmentByName(form.departmentName));
+        old.setBaseSalary(form.baseSalary);
+        old.setRole(EmployeeRole.valueOf(form.role));
+        return old;
     }
 }
