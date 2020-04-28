@@ -56,8 +56,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/salary/{department}")
-    public ResponseEntity<Double> getMeanSalary(@PathVariable Long department){
-        return ResponseEntity.ok().body(this.employeeServiceImpl.getMeanSalary(department));
+    public ResponseEntity<Double> getMeanSalaryByDepartment(@PathVariable Long department){
+        return ResponseEntity.ok().body(this.employeeServiceImpl.getMeanSalaryByDepartment(department));
+    }
+
+    @GetMapping("/salary/mean")
+    public ResponseEntity<Double> getMeanSalary(){
+        return ResponseEntity.ok().body(this.employeeServiceImpl.getMeanSalary());
     }
 
 

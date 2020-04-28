@@ -119,10 +119,25 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     @Override
-    public Double getMeanSalary(Long departmentId) {
+    public Double getMeanSalaryByDepartment(Long departmentId) {
         Department department = this.departmentService.findById(departmentId);
         List<Employee> employees = this.repository.findEmployeeByDepartment(department);
-        return employees.stream().mapToDouble(Employee::getBonus).average().getAsDouble();
+        List<Employee> employeeList = this.repository.findAll();
+        return employees.stream()
+                .filter(employee -> employee.getDepartment().getId() == departmentId)
+                .mapToDouble(Employee::getBonus)
+                .average()
+                .getAsDouble();
+    }
+
+    @Override
+    public Double getMeanSalary() {
+        List<Employee> employeesList = this.repository.findAll();
+        Double meanSalary = employeesList
+                .stream()
+                .mapToDouble(Employee::getBonus)
+                .average().getAsDouble();
+        return meanSalary;
     }
 
     @Override

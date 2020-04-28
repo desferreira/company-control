@@ -16,7 +16,8 @@ public interface IEmployeeService {
     Employee createFromEmployeeForm(EmployeeForm form);
     Employee insertFrequency(Long id, FrequencyForm frequency);
     void removeEmployee(Long id);
-    Double getMeanSalary(Long departmentId);
+    Double getMeanSalaryByDepartment(Long departmentId);
     Employee updateEmployee(Long id, EmployeeForm form);
+    Double getMeanSalary();
 
 }
