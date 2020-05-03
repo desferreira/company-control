@@ -45,10 +45,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public Employee findById(Long id) {
         Optional<Employee> optionalEmployee = this.repository.findById(id);
         logger.log(Level.INFO, String.format("Finding the employee with id %o", id));
-        if(optionalEmployee.isPresent()){
-            return optionalEmployee.get();
+        if(!optionalEmployee.isPresent()){
+            throw new HttpException(String.format("O usuário com id %d não existe", id), HttpStatus.NOT_FOUND, "Error");
         }
-        return null;
+        return optionalEmployee.get();
     }
 
     @Override
@@ -103,7 +103,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             }
             return employee;
         }
-        return null;
+        throw new HttpException(String.format("The employee with id %o is not registered", id), HttpStatus.NOT_FOUND, "Error");
     }
 
     @Override
@@ -148,7 +148,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
             this.repository.save(updatedEmployee);
             return updatedEmployee;
         }
-        return null;
+        throw new HttpException(String.format("The employee with id %o is not registered", id), HttpStatus.NOT_FOUND, "Error");
     }
 
     private Employee updateEmployee(EmployeeForm form, Employee old){
