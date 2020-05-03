@@ -7,6 +7,7 @@ import com.diego.companycontrol.data.forms.FrequencyFormId;
 import com.diego.companycontrol.services.implementation.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +26,7 @@ public class EmployeeController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> createNewEmployee(@RequestBody EmployeeForm employeeForm){
         return ResponseEntity.ok().body(this.employeeServiceImpl.createFromEmployeeForm(employeeForm));
     }
@@ -35,12 +37,14 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteEmployeeById(@PathVariable Long id){
         this.employeeServiceImpl.removeEmployee(id);
-        return ResponseEntity.ok().body("O usuário foi removido com sucesso!");
+        return ResponseEntity.ok().body("O usuáriso foi removido com sucesso!");
     }
 
     @PostMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id, @RequestBody EmployeeForm form){
         return ResponseEntity.ok().body(this.employeeServiceImpl.updateEmployee(id, form));
     }
