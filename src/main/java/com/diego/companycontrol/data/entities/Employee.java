@@ -1,11 +1,13 @@
 package com.diego.companycontrol.data.entities;
 
 import com.diego.companycontrol.data.entities.enums.EmployeeRole;
+import com.diego.companycontrol.data.entities.enums.EmployeeStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -45,6 +47,9 @@ public class Employee {
     private EmployeeRole role;
 
     @Getter @Setter
+    private EmployeeStatus status;
+
+    @Getter @Setter
     @OneToMany
     private List<Frequency> frequency = new ArrayList<>();
 
@@ -56,6 +61,7 @@ public class Employee {
         this.department = department;
         this.baseSalary = baseSalary;
         this.role = role;
+        this.status = EmployeeStatus.ATIVO;
     }
 
     public Double getBonus() {
