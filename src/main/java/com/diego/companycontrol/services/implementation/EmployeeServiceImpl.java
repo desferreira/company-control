@@ -5,6 +5,7 @@ import com.diego.companycontrol.data.entities.Employee;
 import com.diego.companycontrol.data.entities.Frequency;
 import com.diego.companycontrol.data.entities.enums.DepartmentRole;
 import com.diego.companycontrol.data.entities.enums.EmployeeRole;
+import com.diego.companycontrol.data.entities.enums.EmployeeStatus;
 import com.diego.companycontrol.data.entities.enums.FrequencyStatus;
 import com.diego.companycontrol.data.entities.factories.EmployeeFactory;
 import com.diego.companycontrol.data.forms.EmployeeForm;
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements IEmployeeService {
@@ -38,7 +40,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public List<Employee> findAll() {
-        return this.repository.findAll();
+        return this.repository.findAll()
+                .stream()
+                .filter(employee -> employee.getStatus() == EmployeeStatus.ATIVO)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -110,12 +115,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
     public void removeEmployee(Long id) {
         Optional<Employee> employeeOptional = this.repository.findById(id);
         if(employeeOptional.isPresent()){
-            this.repository.deleteById(id);
+            Employee employee = employeeOptional.get();
+            employee.setStatus(EmployeeStatus.INATIVO);
+            this.repository.save(employee);
         }else {
             throw new HttpException(String.format("The employee with id %o is not registered", id), HttpStatus.NOT_FOUND, "Error");
         }
-
-
     }
 
     @Override

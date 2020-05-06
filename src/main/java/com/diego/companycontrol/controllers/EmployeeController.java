@@ -41,7 +41,7 @@ public class EmployeeController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteEmployeeById(@PathVariable Long id){
         this.employeeServiceImpl.removeEmployee(id);
-        return ResponseEntity.ok().body("O usuáriso foi removido com sucesso!");
+        return ResponseEntity.ok().body("O usuário foi removido com sucesso!");
     }
 
     @PostMapping("/{id}")
