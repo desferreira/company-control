@@ -9,7 +9,6 @@ import java.util.List;
 public interface IFrequencyService {
 
     Frequency registerFrequencyFromForm(FrequencyForm form, Employee employee);
-//    List<Frequency> getFrequenciesByEmployee(Employee employee);
 
     Frequency saveFrequency(Frequency frequency);
 
