@@ -30,6 +30,9 @@ public class Employee {
     private String name;
 
     @Getter @Setter
+    private String CPF;
+
+    @Getter @Setter
     @JsonFormat(pattern = "YYYY/MM/dd")
     private Date birthDate;
 
@@ -53,9 +56,10 @@ public class Employee {
     @OneToMany
     private List<Frequency> frequency = new ArrayList<>();
 
-    public Employee(Long id, String name, Date birthDate, String email, Department department, Double baseSalary, EmployeeRole role){
+    public Employee(Long id, String name, String CPF, Date birthDate, String email, Department department, Double baseSalary, EmployeeRole role){
         this.id = id;
         this.name = name;
+        this.CPF = CPF;
         this.birthDate = birthDate;
         this.email = email;
         this.department = department;

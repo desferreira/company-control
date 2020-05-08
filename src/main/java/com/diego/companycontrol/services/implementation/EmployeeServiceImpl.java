@@ -14,6 +14,7 @@ import com.diego.companycontrol.data.forms.FrequencyFormId;
 import com.diego.companycontrol.exception.HttpException;
 import com.diego.companycontrol.repositories.EmployeeRepository;
 import com.diego.companycontrol.services.IEmployeeService;
+import com.diego.companycontrol.utils.CPFValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
         Optional<Employee> optionalEmployee = this.repository.findById(id);
         logger.log(Level.INFO, String.format("Finding the employee with id %o", id));
         if(!optionalEmployee.isPresent()){
-            throw new HttpException(String.format("O usuário com id %d não existe", id), HttpStatus.NOT_FOUND, "Error");
+            throw new HttpException(String.format("The employee with id %d is not registered", id), HttpStatus.NOT_FOUND, "Error");
         }
         return optionalEmployee.get();
     }
@@ -75,7 +76,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
             department = this.departmentService.createEmployee(new Department(DepartmentRole.valueOf(form.departmentName)));
         }
 
-        Employee employee = new EmployeeFactory().createNewEmployee(null, form.name, form.birthDate,
+        if (!CPFValidator.isCPF(form.CPF)) {
+            throw new HttpException("This CPF is Invalid", HttpStatus.NOT_FOUND, "Error");
+        }
+
+        Employee employee = new EmployeeFactory().createNewEmployee(null, form.name, form.CPF, form.birthDate,
                 form.email, department, form.baseSalary, EmployeeRole.valueOf(form.role.toUpperCase()));
 
         return this.repository.save(employee);

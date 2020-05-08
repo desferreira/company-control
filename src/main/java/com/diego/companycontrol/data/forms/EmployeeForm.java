@@ -15,6 +15,9 @@ public class EmployeeForm {
     public String name;
 
     @NotEmpty @NotNull
+    public String CPF;
+
+    @NotEmpty @NotNull
     @JsonFormat(pattern = "YYYY/MM/dd")
     public Date birthDate;
 

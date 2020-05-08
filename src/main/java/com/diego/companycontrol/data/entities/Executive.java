@@ -10,8 +10,8 @@ import java.util.Date;
 @NoArgsConstructor
 public class Executive extends Employee {
 
-    public Executive(Long id, String name, Date birthDate, String email, Department department, Double baseSalary, EmployeeRole role) {
-        super(id, name, birthDate, email, department, baseSalary, role);
+    public Executive(Long id, String name, String CPF, Date birthDate, String email, Department department, Double baseSalary, EmployeeRole role) {
+        super(id, CPF, name, birthDate, email, department, baseSalary, role);
     }
 
     @Override

@@ -45,12 +45,12 @@ public class Instantiation implements CommandLineRunner {
 
         departmentRepository.saveAll(Arrays.asList(d1, d2));
 
-        Employee e1 = new EmployeeFactory().createNewEmployee(null,"Diego Ferreira", new Date(),
+        Employee e1 = new EmployeeFactory().createNewEmployee(null, "Diego Ferreira", "10339963433", new Date(),
                 "diegoferreira@hotmail.com", d1, 3500.0,
                 EmployeeRole.EMPLOYEE);
         log.info((String.format("Criando o employee %s", e1.toString())));
 
-        Employee e2 = new EmployeeFactory().createNewEmployee(null,"John Smith", new Date(),
+        Employee e2 = new EmployeeFactory().createNewEmployee(null,"John Smith", "10339963433", new Date(),
                 "diegoferreira@hotmail.com", d2, 6500.0,
                 EmployeeRole.EXECUTIVE);
         log.info((String.format("Criando o employee %s", e2.toString())));
