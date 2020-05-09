@@ -7,7 +7,6 @@ import com.diego.companycontrol.data.entities.enums.DepartmentRole;
 import com.diego.companycontrol.data.entities.enums.EmployeeRole;
 import com.diego.companycontrol.data.entities.enums.EmployeeStatus;
 import com.diego.companycontrol.data.entities.enums.FrequencyStatus;
-import com.diego.companycontrol.data.entities.factories.EmployeeFactory;
 import com.diego.companycontrol.data.forms.EmployeeForm;
 import com.diego.companycontrol.data.forms.FrequencyForm;
 import com.diego.companycontrol.data.forms.FrequencyFormId;
@@ -69,6 +68,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public Employee createFromEmployeeForm(EmployeeForm form) {
+
+        if (null == form){
+            throw new HttpException("The form is invalid", HttpStatus.BAD_REQUEST, "Error");
+        }
+
         logger.log(Level.INFO, String.format("Creating employee from form %s", form.toString()));
 
         Department department = this.departmentService.findDepartmentByName(form.departmentName);
@@ -80,8 +84,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
             throw new HttpException("This CPF is Invalid", HttpStatus.NOT_FOUND, "Error");
         }
 
-        Employee employee = new EmployeeFactory().createNewEmployee(null, form.name, form.CPF, form.birthDate,
-                form.email, department, form.baseSalary, EmployeeRole.valueOf(form.role.toUpperCase()));
+        Employee employee = new Employee.Builder()
+                .withEmployeeForm(form)
+                .withDepartment(department)
+                .build();
 
         return this.repository.save(employee);
 
@@ -89,6 +95,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public Employee insertFrequency(Long id, FrequencyForm form){
+
+        if (null == form){
+            throw new HttpException("The form is invalid", HttpStatus.BAD_REQUEST, "Error");
+        }
+
         Optional<Employee> optionalEmployee = this.repository.findById(id);
         if(optionalEmployee.isPresent()){
             Employee employee = optionalEmployee.get();
@@ -102,6 +113,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
     }
 
     public Employee concludeFrequency(Long id, FrequencyFormId form){
+
+        if (null == form){
+            throw new HttpException("The form is invalid", HttpStatus.BAD_REQUEST, "Error");
+        }
+
         Optional<Employee> optionalEmployee = this.repository.findById(id);
         if (optionalEmployee.isPresent()){
             Employee employee = optionalEmployee.get();
@@ -152,6 +168,11 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
     @Override
     public Employee updateEmployee(Long id, EmployeeForm form) {
+
+        if (null == form){
+            throw new HttpException("The form is invalid", HttpStatus.BAD_REQUEST, "Error");
+        }
+
         Optional<Employee> optionalEmployee = this.repository.findById(id);
         if(optionalEmployee.isPresent()){
             Employee updatedEmployee = this.updateEmployee(form, optionalEmployee.get());

@@ -6,9 +6,9 @@ import lombok.Setter;
 public enum EmployeeRole {
 
     EMPLOYEE(0),
-    LIDER(2),
-    EXECUTIVE(3),
-    OWNER(4);
+    LEADER(1),
+    EXECUTIVE(2),
+    OWNER(3);
 
 
     @Getter @Setter

@@ -31,6 +31,6 @@ public class EmployeeForm {
     public Double baseSalary;
 
     @NotEmpty @NotNull
-    public String role;
+    public int role;
 
 }

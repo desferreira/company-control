@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Owner extends Employee {
     public Owner(Long id, String name, String CPF, Date birthDate, String email, Department department, Double baseSalary, EmployeeRole role) {
-        super(id, CPF, name, birthDate, email, department, baseSalary, role);
+        super(id, name, CPF, birthDate, email, department, baseSalary, role);
     }
 
     @Override
